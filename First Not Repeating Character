@@ -1,0 +1,58 @@
+
+// First Solution (Hash Map)
+function solution(s) {
+    // instatiate a Hash Map to log our letters as keys
+    // and the amount of times they repeat as values
+    const hashMap = new Map();
+    // loop through the array initially to place our elements
+    // into the hash map    
+    for(let i = 0; i < s.length; i++)
+    {
+        if(hashMap.has(s[i]))
+        {
+            // if the character at index of i is already inside
+            // of our map, we want to set that elements .get to 
+            // increment by 1
+            hashMap.set(s[i], hashMap.get(s[i]) + 1)
+        }
+        else
+        {
+            // if the character at index of i is not inside of
+            // our map, we want to set that element's value to 1
+            hashMap.set(s[i], 1);
+        }
+    }
+    // now we will loop over our array again to pull the first 
+    // non repeating letter from the hash map.  This is not a nested
+    // for loop, this is a second for loop.  This means that the time
+    // completxity is O(2n), which is very close to linear.
+    for(let i = 0; i < s.length; i++)
+    {
+        if(hashMap.get(s[i]) == 1)
+        {
+            return s[i]
+        }
+    }
+    // if there are no repeating characters, we return the underscore.
+    return '_';
+}
+
+
+// Second Solution (Built-In Function indexOf and lastIndexOf)
+function solution(s) {
+    // Loop through the length of the array
+    for(let i = 0; i < s.length; i++)
+    {   
+        // Utilize the built-in JS function of 
+        // indexOf and lastIndexOf to check if 
+        // the character appears more than once
+        // bc if the indexOf is equal to the 
+        // lastIndexOf, that means there are
+        // no duplicates
+        if(s.indexOf(s[i]) == s.lastIndexOf(s[i]))
+        {
+            return s[i];
+        }
+    }
+    return '_';
+}
