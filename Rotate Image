@@ -1,0 +1,82 @@
+// Note: Try to solve this task in-place (with O(1) additional memory), since this is what you'll be asked to do during an interview.
+
+// You are given an n x n 2D matrix that represents an image. Rotate the image by 90 degrees (clockwise).
+
+// Example
+
+// For
+
+// a = [[1, 2, 3],
+//      [4, 5, 6],
+//      [7, 8, 9]]
+// the output should be
+
+// solution(a) =
+//    [[7, 4, 1],
+//     [8, 5, 2],
+//     [9, 6, 3]]
+
+//Input/Output
+
+// [execution time limit] 4 seconds (js)
+
+// [input] array.array.integer a
+
+// Guaranteed constraints:
+// 1 ≤ a.length ≤ 100,
+// a[i].length = a.length,
+// 1 ≤ a[i][j] ≤ 104.
+
+// [output] array.array.integer
+
+function solution(a) {
+    // First we want to create a for loop
+    // that travels through our matrix
+    // with two pointers
+    for(let i = 0; i < a.length; i++)
+    {
+        for(let j = i; j < a.length; j++)
+        {
+            // we want to first turn the first
+            // row of the matrix into the first 
+            // column of the matrix. We will swap 
+            // a[i][j] (Row-Column) with a[j][i]
+            // (Column-Row).  Using example 1, we 
+            // will have a 2D array that looks like:
+            // [[1,4,7]]
+            // [[2,5,8]]
+            // [[3,6,9]]
+            let temp = a[i][j];
+            a[i][j] = a[j][i];
+            a[j][i] = temp;
+        }
+    }
+    // now that we have turned the nth row into the 
+    // nth column, the nth+1 row into the nth+2 column,
+    // etc...we now need to start swapping the numbers
+    // from the edges of the matrix with one another and
+    // move inward from there, swapping as we go. 
+    // [[7,4,1]]
+    // [[8,5,2]]
+    // [[9,6,3]]
+    for(let i = 0; i < a.length; i++)
+    {
+        // remember that we are only going halfway
+        // through the length of the array because
+        // we want to work our way to the center
+        for(let j = 0; j < (a.length / 2); j++)
+        {
+            // a[i][j] is our pointer on the start
+            // and a[i][a.length - 1 - j] is the 
+            // pointer that moves from the end of the 
+            // array by starting at a.length - 1 (which
+            // gets us at the endpoint) and minus j 
+            // (which allows us to move backwards towards
+            // the middle of the rows)
+            let temp = a[i][j];
+            a[i][j] = a[i][a.length - 1 - j];
+            a[i][a.length - 1 - j] = temp;
+        }
+    }
+    return a
+}
